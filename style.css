@@ -1,0 +1,359 @@
+/* Container untuk animasi hujan pertama */
+#rain-container-1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  
+  /* Container untuk animasi hujan kedua */
+  #rain-container-2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 9998;
+  }
+  
+  /* Container untuk falling items (animasi hujan celebratory) */
+  #rain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  
+  /* Gaya dasar untuk falling item animasi celebratory */
+  .falling-item {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+    background-position: center;
+    transform-origin: center;
+    animation: fall 5s linear forwards, glow 1.5s infinite alternate;
+  }
+  
+  /* Gaya dasar untuk falling item animasi kedua */
+  .falling-item-2 {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+    background-position: center;
+    transform-origin: center;
+    animation: fall2 6s linear forwards, glow 1.5s infinite alternate;
+  }
+  
+  /* Bentuk love dan bunga untuk falling item kedua */
+  .love {
+    clip-path: polygon(50% 0%, 61% 11%, 75% 11%, 86% 22%, 86% 36%, 75% 50%, 50% 75%, 25% 50%, 14% 36%, 14% 22%, 25% 11%, 39% 11%);
+  }
+  
+  .flower {
+    border-radius: 50%;
+  }
+  
+  /* Keyframes animasi hujan celebratory */
+  @keyframes fall {
+    0% {
+      transform: translateY(-30px);
+    }
+    100% {
+      transform: translateY(100vh);
+    }
+  }
+  
+  /* Keyframes animasi hujan kedua */
+  @keyframes fall2 {
+    0% {
+      transform: translateY(-100vh) rotate(0deg);
+    }
+    100% {
+      transform: translateY(100vh) rotate(360deg);
+    }
+  }
+  
+  /* Efek glow */
+  @keyframes glow {
+    from {
+      filter: brightness(0.8);
+    }
+    to {
+      filter: brightness(1.5);
+    }
+  }
+  
+  /* Keyframes efek throw away (opsional, double) */
+  @keyframes throwAwayRight {
+    0% {
+      opacity: 1;
+      transform: translateY(100vh) rotate(0deg) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(150vw, 100vh) rotate(720deg) scale(0);
+    }
+  }
+  
+  @keyframes throwAwayLeft {
+    0% {
+      opacity: 1;
+      transform: translateY(100vh) rotate(0deg) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-150vw, 100vh) rotate(-720deg) scale(0);
+    }
+  }
+  
+  /* Overlay izin audio */
+  #audio-permission {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    z-index: 1000;
+    cursor: pointer;
+  }
+  
+  /* Lilin dengan drop-in animation */
+  .candle {
+    position: relative;
+    top: 300px;
+    left: 90%;
+    width: 4px;
+    height: 90px;
+    background: #fefae9;
+    border-radius: 100px;
+    animation: dropIn 20s cubic-bezier(0.68, -0.55, 0.265, 1) forwards;
+    z-index: 50;
+    
+  }
+  
+  @keyframes dropIn {
+    0% {
+      transform: translateY(-200vh);
+      opacity: 0;
+    }
+    50% {
+      transform: translateY(10px);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  /* Api lilin */
+  .flame {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 40px;
+    pointer-events: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .flame::before,
+  .flame::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+  }
+  .flame::before {
+    width: 20px;
+    height: 40px;
+    background: radial-gradient(circle at 50% 50%, rgba(255,200,0,1) 0%, rgba(255,94,0,0.8) 70%, transparent 80%);
+    filter: blur(3px);
+    animation: flickerOuter 0.25s infinite alternate;
+  }
+  .flame::after {
+    top: 8px;
+    width: 10px;
+    height: 20px;
+    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,1) 0%, rgba(255,200,0,0.8) 70%, transparent 80%);
+    animation: flickerInner 0.2s infinite alternate;
+  }
+  @keyframes flickerOuter {
+    0% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
+    50% { transform: translateX(-48%) translateY(-2px) scale(1.1); opacity: 0.9; }
+    100% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
+  }
+  @keyframes flickerInner {
+    0% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
+    50% { transform: translateX(-52%) translateY(1px) scale(0.95); opacity: 0.95; }
+    100% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
+  }
+  
+  /* Efek gust (tiupan) */
+  .flame.gust {
+    animation: gustEffect 0.5s ease;
+  }
+  @keyframes gustEffect {
+    0% { transform: translateX(-50%) translateY(0) rotate(0deg) scale(1); }
+    50% { transform: translateX(-30%) translateY(-5px) rotate(10deg) scale(1.05); }
+    100% { transform: translateX(-50%) translateY(0) rotate(0deg) scale(1); }
+  }
+  
+  /* Efek final blow */
+  .flame.final-blow {
+    animation: finalBlowEffect 0.8s ease forwards;
+  }
+  @keyframes finalBlowEffect {
+    0% {
+      transform: translateX(-50%) translateY(0) rotate(0deg) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(50px) translateY(-10px) rotate(20deg) scale(0.3);
+      opacity: 0;
+    }
+  }
+  
+  /* Asap lilin */
+  .smoke {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    width: 0;
+    height: 0;
+  }
+  .smoke .puff {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, rgba(128,128,128,0.7) 30%, transparent 70%);
+    border-radius: 50%;
+    opacity: 0;
+    animation: smokeRise 2s ease-out infinite;
+  }
+  .smoke .puff:nth-child(1) { animation-delay: 0s; }
+  .smoke .puff:nth-child(2) { animation-delay: 0.5s; }
+  .smoke .puff:nth-child(3) { animation-delay: 1s; }
+  @keyframes smokeRise {
+    0% { transform: translate(-50%, 0) scale(0.8); opacity: 0.7; }
+    100% { transform: translate(-50%, -40px) scale(1.5); opacity: 0; }
+  }
+  .smoke.active .puff { opacity: 1; }
+  
+  /* Tombol Play Lagu */
+  #play-song {
+    display: none;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff5e00;
+    color: #fff;
+    cursor: pointer;
+    position: fixed;
+    top: 35%;
+    right: 44.5%;
+  }
+  
+  /* Background dan kontainer utama */
+  body {
+    background-color: #ff94a4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .cake-container {
+    max-width: 290px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  /* Animasi fade in untuk teks */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .text {
+    font: 1em verdana;
+    color: aliceblue;
+    opacity: 0;
+    animation: fadeIn 5s ease-in 4s forwards;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 48px;
+  }
+  /* Atur ulang margin dan line-height untuk mengurangi spasi */
+  .text h1 {
+    margin: 0;            /* Hilangkan margin default */
+    line-height: 1.2;     /* Perkecil line-height */
+    font-size: 46px;
+  }
+  
+  .text p {
+    margin: 0;            /* Hilangkan margin default */
+    line-height: 1.4;     /* Samakan atau sesuaikan line-height */
+  }
+  /* Responsive SVG cake */
+  svg {
+    position: absolute;
+    bottom: 35%;
+    left: 25%;
+    width: 50%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  /* Responsive untuk Mobile */
+@media (max-width: 600px) {
+  .text h1 {
+    font-size: 6vw;
+  }
+
+  .text p {
+    font-size: 3vw;
+  }
+
+  .cake {
+    width: 150px;
+  }
+
+  .cake .candle {
+    width: 30px;
+    top: -20px;
+  }
+}
